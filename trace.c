@@ -64,9 +64,16 @@ struct udp_header {
     u_short checksum;
 };
 
+struct pseduo_header {
+    u_int32_t src_addr;
+    u_int32_t dst_addr;
+    u_char zero;
+    u_char proto;
+    u_short tcp_len;
+};
+
 void print_mac(const u_char *mac) {
-    printf("%02x:%02x:%02x:%02x:%02x:%02x",
-           mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    printf("%02x:%02x:%02x:%02x:%02x:%02x", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 }
 
 void udp(const u_char *packet) {
@@ -76,10 +83,16 @@ void udp(const u_char *packet) {
     memcpy(&udp.len, packet + 4, 2);
     memcpy(&udp.checksum, packet + 6, 2);
 
+    // dereference because they're variables not arrays
+    // just so for a reminder when doing C next time so i don't forget
+    // when passing in an array, no dereference is needed because the array name is a pointer to the first element
+
     printf("\n");
 
     printf("\tUDP Header\n");
     printf("\t\tSource Port: ");
+
+    // port stuff that was asked on the assignment, should be double checked
 
     u_int16_t src = ntohs(udp.src_port);
     if (src == 53) printf("DNS\n");
@@ -105,7 +118,7 @@ void udp(const u_char *packet) {
     // printf("\t\tChecksum: %u\n", ntohs(udp.checksum));
 }
 
-void tcp(const u_char *packet, int tcp_len) {
+void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) {
     struct tcp_header tcp;
     memcpy(&tcp.src_port, packet, 2);
     memcpy(&tcp.dest_port, packet + 2, 2);
@@ -126,9 +139,15 @@ void tcp(const u_char *packet, int tcp_len) {
     printf("\t\tSequence Number: %u\n", ntohl(tcp.seq_num));
     printf("\t\tACK Number: %u\n", ntohl(tcp.ack_num));
 
+    // formatted as same as the diff, github has older variables if needed for reference
+
     int raw = ntohs(tcp.offset_flags);
     int data_offset = raw / 4096;
     printf("\t\tData Offset (bytes): %d\n", data_offset * 4);
+
+    // in the tcp header, there's a 16 bit field called data offset + reserved + flags
+    // here the first 4 bits represent the data offset
+    // and then multiply by 4 to get num of bytes
 
     int flags = raw % 512;
 
@@ -138,8 +157,32 @@ void tcp(const u_char *packet, int tcp_len) {
     printf("\t\tACK Flag: %s\n", ((flags / 16) % 2 == 1) ? "Yes" : "No");
 
     printf("\t\tWindow Size: %d\n", ntohs(tcp.window));
-    printf("\t\tChecksum: Correct (0x%04x)\n", ntohs(tcp.checksum));
-    
+
+    // okay so lowkey had to gpt a bit of this, but i kind of understand it now
+    // add more comments along the way
+    // but i believe its cause the tcp checksum isn't just over tcp, it also needs some ip header info
+    // and we call it pseudo because it isn't actually transmitted in the packet, it's just for the checksum math
+
+    struct pseduo_header psh;
+    psh.src_addr = s.s_addr;
+    psh.dst_addr = d.s_addr;
+    psh.zero = 0;
+    psh.proto = 6;
+    psh.tcp_len = htons(tcp_len);
+
+    int psize = sizeof(struct pseduo_header) + tcp_len;
+    unsigned char *buf = malloc(psize);
+    memcpy(buf, &psh, sizeof(struct pseduo_header));
+    memcpy(buf + sizeof(struct pseduo_header), packet, tcp_len);
+
+    // and also the reason we're able to do this is because in c when we just just memcpy
+    // we're basically passing in the raw memory so the data type here didn't really matter yk
+
+    unsigned short result = in_cksum((unsigned short*)buf, psize);
+    free(buf);
+
+    if (result == 0) printf("\t\tChecksum: Correct (0x%04x)\n", ntohs(tcp.checksum));
+    else printf("\t\tChecksum: Incorrect (0x%04x)\n", ntohs(tcp.checksum));
 }
 
 void icmp(const u_char *packet) {
@@ -174,6 +217,10 @@ void ip(const u_char *packet) {
     // int version = (ip.ver_ihl & 0xF0) / 16;
     int ihl = ip.ver_ihl & 0x0F;
     int header_len = ihl * 4;
+
+    // ihl = "Internet Header Length" from the IP header
+    // when multiplied by 4, it gives the actual bytes
+    // header_len represents how how many bytes long the IP header is
 
     printf("\tIP Header\n");
     // printf("\t\tVersion: %d\n", version);
@@ -212,7 +259,7 @@ void ip(const u_char *packet) {
 
         int tcp_len = ntohs(ip.tlen) - header_len; 
 
-        tcp(packet + header_len, tcp_len);
+        tcp(packet + header_len, tcp_len, s, d);
     }
     else if (ip.proto == 17) {
         printf("UDP\n");
@@ -285,12 +332,9 @@ void ethernet(const u_char *packet) {
     printf("\n");
 
     u_short type = ntohs(eth.type);
-    if (type == 0x0806)
-        printf("\t\tType: ARP\n");
-    else if (type == 0x0800)
-        printf("\t\tType: IP\n");
-    else
-        printf("\t\tType: 0x%04x\n", type);
+    if (type == 0x0806) printf("\t\tType: ARP\n");
+    else if (type == 0x0800) printf("\t\tType: IP\n");
+    else printf("\t\tType: 0x%04x\n", type);
 
     printf("\n"); 
 
@@ -318,6 +362,8 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Could not open pcap file: %s\n", errbuf);
         exit(1);
     }
+
+    // error handling above to make sure the correct arguments are passed in
 
     struct pcap_pkthdr *header;
     const u_char *packet;
