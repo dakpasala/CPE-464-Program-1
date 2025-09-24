@@ -5,7 +5,7 @@ LIBS=-lpcap
 all: trace
 
 trace: trace.c
-	$(CC) $(CFLAGS) -o trace trace.c $(LIBS)
+	$(CC) $(CFLAGS) -o trace trace.c checksum.c $(LIBS)
 
 clean:
 	rm -f trace *.o
