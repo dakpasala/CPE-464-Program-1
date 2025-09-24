@@ -224,7 +224,14 @@ void ip(const u_char *packet) {
 
         udp(packet + header_len);
     }
-    else printf("Unknown\n");
+    else {
+        printf("Unknown\n");
+        if (result == 0) printf("\t\tChecksum: Correct (0x%04x)\n", ntohs(ip.crc));
+        else printf("\t\tChecksum: Incorrect (0x%04x)\n", ntohs(ip.crc));
+
+        printf("\t\tSender IP: %s\n", inet_ntoa(s));
+        printf("\t\tDest IP: %s\n", inet_ntoa(d));
+    }
 }
 
 void arp(const u_char *packet) {
