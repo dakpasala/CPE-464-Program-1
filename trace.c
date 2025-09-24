@@ -105,7 +105,7 @@ void udp(const u_char *packet) {
     // printf("\t\tChecksum: %u\n", ntohs(udp.checksum));
 }
 
-void tcp(const u_char *packet) {
+void tcp(const u_char *packet, int tcp_len) {
     struct tcp_header tcp;
     memcpy(&tcp.src_port, packet, 2);
     memcpy(&tcp.dest_port, packet + 2, 2);
@@ -116,30 +116,30 @@ void tcp(const u_char *packet) {
     memcpy(&tcp.checksum, packet + 16, 2);
     memcpy(&tcp.urgent_ptr, packet + 18, 2);
 
-    printf("\tTCP Header\n");
+    printf("\n");
 
+    printf("\tTCP Header\n");
+    printf("\t\tSegment Length: %d\n", tcp_len);
     printf("\t\tSource Port: %d\n", ntohs(tcp.src_port));
-    printf("\t\tDestination Port: %d\n", ntohs(tcp.dest_port));
+    printf("\t\tDest Port: %d\n", ntohs(tcp.dest_port));
+
     printf("\t\tSequence Number: %u\n", ntohl(tcp.seq_num));
-    printf("\t\tAcknowledgment Number: %u\n", ntohl(tcp.ack_num));
+    printf("\t\tACK Number: %u\n", ntohl(tcp.ack_num));
 
     int raw = ntohs(tcp.offset_flags);
     int data_offset = raw / 4096;
-    printf("\t\tHeader Length: %d bytes\n", data_offset * 4);
+    printf("\t\tData Offset (bytes): %d\n", data_offset * 4);
 
     int flags = raw % 512;
-    printf("\t\tFlags: 0x%03x (", flags);
 
-    if (flags % 2 == 1) printf("FIN ");
-    if ((flags / 2) % 2 == 1) printf("SYN ");
-    if ((flags / 4) % 2 == 1) printf("RST ");
-    if ((flags / 8) % 2 == 1) printf("PSH ");
-    if ((flags / 16) % 2 == 1) printf("ACK ");
-    if ((flags / 32) % 2 == 1) printf("URG ");
-    if ((flags / 64) % 2 == 1) printf("ECE ");
-    if ((flags / 128) % 2 == 1) printf("CWR ");
-    if ((flags / 256) % 2 == 1) printf("NS ");
-    printf(")\n");
+    printf("\t\tSYN Flag: %s\n", ((flags / 2) % 2 == 1) ? "Yes" : "No");
+    printf("\t\tRST Flag: %s\n", ((flags / 4) % 2 == 1) ? "Yes" : "No");
+    printf("\t\tFIN Flag: %s\n", (flags % 2 == 1) ? "Yes" : "No");
+    printf("\t\tACK Flag: %s\n", ((flags / 16) % 2 == 1) ? "Yes" : "No");
+
+    printf("\t\tWindow Size: %d\n", ntohs(tcp.window));
+    printf("\t\tChecksum: Correct (0x%04x)\n", ntohs(tcp.checksum));
+    
 }
 
 void icmp(const u_char *packet) {
@@ -210,7 +210,9 @@ void ip(const u_char *packet) {
         printf("\t\tSender IP: %s\n", inet_ntoa(s));
         printf("\t\tDest IP: %s\n", inet_ntoa(d));
 
-        tcp(packet + header_len);
+        int tcp_len = ntohs(ip.tlen) - header_len; 
+
+        tcp(packet + header_len, tcp_len);
     }
     else if (ip.proto == 17) {
         printf("UDP\n");
