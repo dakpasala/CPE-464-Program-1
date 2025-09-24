@@ -76,11 +76,33 @@ void udp(const u_char *packet) {
     memcpy(&udp.len, packet + 4, 2);
     memcpy(&udp.checksum, packet + 6, 2);
 
-    printf("\tUDP Header \n");
-    printf("\t\tSource Port: %u\n", ntohs(udp.src_port));
-    printf("\t\tDestination Port: %u\n", ntohs(udp.dest_port));
-    printf("\t\tLength: %u\n", ntohs(udp.len));
-    printf("\t\tChecksum: %u\n", ntohs(udp.checksum));
+    printf("\n");
+
+    printf("\tUDP Header\n");
+    printf("\t\tSource Port: ");
+
+    u_int16_t src = ntohs(udp.src_port);
+    if (src == 53) printf("DNS\n");
+    else if (src == 67) printf("DHCP Server\n");
+    else if (src == 68) printf("DHCP Client\n");
+    else if (src == 123) printf("NTP\n");
+    else if (src == 161) printf("SNMP\n");
+    else if (src == 162) printf("SNMP Trap\n");
+    else printf("%u\n", src);
+
+    printf("\t\tDest Port: ");
+
+    u_int16_t dst = ntohs(udp.dest_port);
+    if (dst == 53) printf("DNS\n");
+    else if (dst == 67) printf("DHCP Server\n");
+    else if (dst == 68) printf("DHCP Client\n");
+    else if (dst == 123) printf("NTP\n");
+    else if (dst == 161) printf("SNMP\n");
+    else if (dst == 162) printf("SNMP Trap\n");
+    else printf("%u\n", dst);
+
+    // printf("\t\tLength: %u\n", ntohs(udp.len));
+    // printf("\t\tChecksum: %u\n", ntohs(udp.checksum));
 }
 
 void tcp(const u_char *packet) {
@@ -191,13 +213,13 @@ void ip(const u_char *packet) {
         tcp(packet + header_len);
     }
     else if (ip.proto == 17) {
+        printf("UDP\n");
         if (result == 0) printf("\t\tChecksum: Correct (0x%04x)\n", ntohs(ip.crc));
         else printf("\t\tChecksum: Incorrect (0x%04x)\n", ntohs(ip.crc));
 
         printf("\t\tSender IP: %s\n", inet_ntoa(s));
         printf("\t\tDest IP: %s\n", inet_ntoa(d));
 
-        printf("UDP\n\n");
         udp(packet + header_len);
     }
     else printf("Unknown\n");
