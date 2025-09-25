@@ -259,6 +259,9 @@ void ip(const u_char *packet) {
 
         int tcp_len = ntohs(ip.tlen) - header_len; 
 
+        // header_len is what occupies the beginning, so subtracting
+        // it will allow for the length of just the tcp segment
+
         tcp(packet + header_len, tcp_len, s, d);
     }
     else if (ip.proto == 17) {
