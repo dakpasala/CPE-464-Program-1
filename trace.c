@@ -109,6 +109,7 @@ void udp(const u_char *packet) {
     if (dst == 53) printf("DNS\n");
     else if (dst == 67) printf("DHCP Server\n");
     else if (dst == 68) printf("DHCP Client\n");
+    else if (dst == 80) printf("HTTP\n");
     else if (dst == 123) printf("NTP\n");
     else if (dst == 161) printf("SNMP\n");
     else if (dst == 162) printf("SNMP Trap\n");
@@ -133,8 +134,14 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
 
     printf("\tTCP Header\n");
     printf("\t\tSegment Length: %d\n", tcp_len);
-    printf("\t\tSource Port: %d\n", ntohs(tcp.src_port));
-    printf("\t\tDest Port: %d\n", ntohs(tcp.dest_port));
+
+    u_int16_t src = ntohs(tcp.src_port);
+    if (src != 80) printf("\t\tSource Port: %d\n", src);
+    else printf("\t\tSource Port: HTTP\n");
+
+    u_int16_t dest = ntohs(tcp.dest_port);
+    if (dest != 80) printf("\t\tDest Port: %u\n", dest);
+    else printf("\t\tDest Port: HTTP\n");
 
     printf("\t\tSequence Number: %u\n", ntohl(tcp.seq_num));
     printf("\t\tACK Number: %u\n", ntohl(tcp.ack_num));
