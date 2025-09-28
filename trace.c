@@ -390,6 +390,8 @@ int main(int argc, char *argv[]) {
         ethernet(packet);
     }
 
+    printf("\n");
+
     pcap_close(handle);
     return 0;
 }

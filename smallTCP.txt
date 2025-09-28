@@ -17,7 +17,7 @@ Packet number: 1  Packet Len: 62
 
 	TCP Header
 		Segment Length: 28
-		Source Port: 63883
+		Source Port: 1675
 		Dest Port: 22
 		Sequence Number: 120759613
 		ACK Number: 0
@@ -27,7 +27,7 @@ Packet number: 1  Packet Len: 62
 		FIN Flag: No
 		ACK Flag: No
 		Window Size: 16384
-		Checksum: Incorrect (0x5aba)
+		Checksum: Correct (0x5aba)
 
 Packet number: 2  Packet Len: 62
 
@@ -47,7 +47,7 @@ Packet number: 2  Packet Len: 62
 
 	TCP Header
 		Segment Length: 28
-		Source Port: 233
+		Source Port: 22
 		Dest Port: 1675
 		Sequence Number: 3289359198
 		ACK Number: 120759614
@@ -57,7 +57,7 @@ Packet number: 2  Packet Len: 62
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 49680
-		Checksum: Incorrect (0x717a)
+		Checksum: Correct (0x717a)
 
 Packet number: 3  Packet Len: 54
 
@@ -78,7 +78,7 @@ Packet number: 3  Packet Len: 54
 	TCP Header
 		Segment Length: 20
 		Source Port: 1675
-		Dest Port: 65302
+		Dest Port: 22
 		Sequence Number: 120759614
 		ACK Number: 3289359199
 		Data Offset (bytes): 20
@@ -87,7 +87,7 @@ Packet number: 3  Packet Len: 54
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 16560
-		Checksum: Incorrect (0x1f4f)
+		Checksum: Correct (0x1f4f)
 
 Packet number: 4  Packet Len: 74
 
@@ -108,7 +108,7 @@ Packet number: 4  Packet Len: 74
 	TCP Header
 		Segment Length: 40
 		Source Port: 22
-		Dest Port: 1652
+		Dest Port: 1675
 		Sequence Number: 3289359199
 		ACK Number: 120759614
 		Data Offset (bytes): 20
@@ -117,7 +117,7 @@ Packet number: 4  Packet Len: 74
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 49680
-		Checksum: Incorrect (0xe036)
+		Checksum: Correct (0xe036)
 
 Packet number: 5  Packet Len: 54
 
@@ -139,7 +139,7 @@ Packet number: 5  Packet Len: 54
 		Segment Length: 20
 		Source Port: 1675
 		Dest Port: 22
-		Sequence Number: 4164068670
+		Sequence Number: 120759614
 		ACK Number: 3289359219
 		Data Offset (bytes): 20
 		SYN Flag: No
@@ -147,7 +147,7 @@ Packet number: 5  Packet Len: 54
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 16540
-		Checksum: Incorrect (0x1f4f)
+		Checksum: Correct (0x1f4f)
 
 Packet number: 6  Packet Len: 78
 
@@ -169,7 +169,7 @@ Packet number: 6  Packet Len: 78
 		Segment Length: 44
 		Source Port: 1675
 		Dest Port: 22
-		Sequence Number: 130917694
+		Sequence Number: 120759614
 		ACK Number: 3289359219
 		Data Offset (bytes): 20
 		SYN Flag: No
@@ -177,7 +177,7 @@ Packet number: 6  Packet Len: 78
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 16540
-		Checksum: Incorrect (0x0aeb)
+		Checksum: Correct (0x0aeb)
 
 Packet number: 7  Packet Len: 60
 
@@ -199,7 +199,7 @@ Packet number: 7  Packet Len: 60
 		Segment Length: 20
 		Source Port: 22
 		Dest Port: 1675
-		Sequence Number: 3289341043
+		Sequence Number: 3289359219
 		ACK Number: 120759638
 		Data Offset (bytes): 20
 		SYN Flag: No
@@ -207,7 +207,7 @@ Packet number: 7  Packet Len: 60
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 49680
-		Checksum: Incorrect (0x9dc2)
+		Checksum: Correct (0x9dc2)
 
 Packet number: 8  Packet Len: 686
 
@@ -229,7 +229,7 @@ Packet number: 8  Packet Len: 686
 		Segment Length: 652
 		Source Port: 1675
 		Dest Port: 22
-		Sequence Number: 120759721
+		Sequence Number: 120759638
 		ACK Number: 3289359219
 		Data Offset (bytes): 20
 		SYN Flag: No
@@ -237,7 +237,7 @@ Packet number: 8  Packet Len: 686
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 16540
-		Checksum: Incorrect (0xf01c)
+		Checksum: Correct (0xf01c)
 
 Packet number: 9  Packet Len: 60
 
@@ -260,14 +260,14 @@ Packet number: 9  Packet Len: 60
 		Source Port: 22
 		Dest Port: 1675
 		Sequence Number: 3289359219
-		ACK Number: 4164069326
+		ACK Number: 120760270
 		Data Offset (bytes): 20
 		SYN Flag: No
 		RST Flag: No
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 49680
-		Checksum: Incorrect (0x9b4a)
+		Checksum: Correct (0x9b4a)
 
 Packet number: 10  Packet Len: 438
 
@@ -290,14 +290,14 @@ Packet number: 10  Packet Len: 438
 		Source Port: 22
 		Dest Port: 1675
 		Sequence Number: 3289359219
-		ACK Number: 130918350
+		ACK Number: 120760270
 		Data Offset (bytes): 20
 		SYN Flag: No
 		RST Flag: No
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 49680
-		Checksum: Incorrect (0x43ed)
+		Checksum: Correct (0x43ed)
 
 Packet number: 11  Packet Len: 78
 
@@ -320,14 +320,14 @@ Packet number: 11  Packet Len: 78
 		Source Port: 1675
 		Dest Port: 22
 		Sequence Number: 120760270
-		ACK Number: 3289340915
+		ACK Number: 3289359603
 		Data Offset (bytes): 20
 		SYN Flag: No
 		RST Flag: No
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 16156
-		Checksum: Incorrect (0xea68)
+		Checksum: Correct (0xea68)
 
 Packet number: 12  Packet Len: 478
 
@@ -350,14 +350,14 @@ Packet number: 12  Packet Len: 478
 		Source Port: 22
 		Dest Port: 1675
 		Sequence Number: 3289359603
-		ACK Number: 120760089
+		ACK Number: 120760294
 		Data Offset (bytes): 20
 		SYN Flag: No
 		RST Flag: No
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 49680
-		Checksum: Incorrect (0x84bd)
+		Checksum: Correct (0x84bd)
 
 Packet number: 13  Packet Len: 54
 
@@ -381,13 +381,13 @@ Packet number: 13  Packet Len: 54
 		Dest Port: 22
 		Sequence Number: 120760294
 		ACK Number: 3289360027
-		Data Offset (bytes): 40
+		Data Offset (bytes): 20
 		SYN Flag: No
 		RST Flag: No
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 15732
-		Checksum: Incorrect (0x1ca7)
+		Checksum: Correct (0x1ca7)
 
 Packet number: 14  Packet Len: 470
 
@@ -412,12 +412,12 @@ Packet number: 14  Packet Len: 470
 		Sequence Number: 120760294
 		ACK Number: 3289360027
 		Data Offset (bytes): 20
-		SYN Flag: Yes
-		RST Flag: Yes
-		FIN Flag: Yes
-		ACK Flag: No
+		SYN Flag: No
+		RST Flag: No
+		FIN Flag: No
+		ACK Flag: Yes
 		Window Size: 15732
-		Checksum: Incorrect (0x4d42)
+		Checksum: Correct (0x4d42)
 
 Packet number: 15  Packet Len: 60
 
@@ -446,8 +446,8 @@ Packet number: 15  Packet Len: 60
 		RST Flag: No
 		FIN Flag: No
 		ACK Flag: Yes
-		Window Size: 15632
-		Checksum: Incorrect (0x966a)
+		Window Size: 49680
+		Checksum: Correct (0x966a)
 
 Packet number: 16  Packet Len: 790
 
@@ -476,8 +476,8 @@ Packet number: 16  Packet Len: 790
 		RST Flag: No
 		FIN Flag: No
 		ACK Flag: Yes
-		Window Size: 49903
-		Checksum: Incorrect (0xb406)
+		Window Size: 49680
+		Checksum: Correct (0xb406)
 
 Packet number: 17  Packet Len: 54
 
@@ -507,7 +507,7 @@ Packet number: 17  Packet Len: 54
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 16560
-		Checksum: Incorrect (0xebeb)
+		Checksum: Correct (0x14eb)
 
 Packet number: 18  Packet Len: 70
 
@@ -537,4 +537,5 @@ Packet number: 18  Packet Len: 70
 		FIN Flag: No
 		ACK Flag: Yes
 		Window Size: 16560
-		Checksum: Incorrect (0x0a4d)
+		Checksum: Correct (0x0ab2)
+
