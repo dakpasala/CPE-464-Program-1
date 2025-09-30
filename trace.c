@@ -6,71 +6,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include "checksum.h"
-
-struct ethernet_header {
-    u_char dest[6];
-    u_char src[6];
-    u_short type;
-};
-
-struct arp_header {
-    u_short htype;
-    u_short ptype;
-    u_char hlen;
-    u_char plen;
-    u_short oper;
-    u_char sha[6];
-    u_char spa[4];
-    u_char tha[6];
-    u_char tpa[4];
-};
-
-struct ip_header {
-    u_char ver_ihl;
-    u_char tos;
-    u_short tlen;
-    u_short identification;
-    u_short flags_fo;
-    u_char ttl;
-    u_char proto;
-    u_short crc;
-    u_char saddr[4];
-    u_char daddr[4];
-};
-
-struct icmp_header {
-    u_char type;
-    u_char code;
-    u_short checksum;
-    u_short id;
-    u_short seq;
-};
-
-struct tcp_header {
-    u_short src_port;
-    u_short dest_port;
-    u_int seq_num;
-    u_int ack_num;
-    u_short offset_flags;
-    u_short window;
-    u_short checksum;
-    u_short urgent_ptr;
-};
-
-struct udp_header {
-    u_short src_port;
-    u_short dest_port;
-    u_short len;
-    u_short checksum;
-};
-
-struct pseduo_header {
-    u_int32_t src_addr;
-    u_int32_t dst_addr;
-    u_char zero;
-    u_char proto;
-    u_short tcp_len;
-};
+#include "trace.h"
 
 void print_mac(const u_char *mac) {
     printf("%02x:%02x:%02x:%02x:%02x:%02x", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
@@ -170,17 +106,17 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
     // but i believe its cause the tcp checksum isn't just over tcp, it also needs some ip header info
     // and we call it pseudo because it isn't actually transmitted in the packet, it's just for the checksum math
 
-    struct pseduo_header psh;
+    struct pseudo_header psh;
     psh.src_addr = s.s_addr;
     psh.dst_addr = d.s_addr;
     psh.zero = 0;
     psh.proto = 6;
     psh.tcp_len = htons(tcp_len);
 
-    int psize = sizeof(struct pseduo_header) + tcp_len;
+    int psize = sizeof(struct pseudo_header) + tcp_len;
     unsigned char *buf = malloc(psize);
-    memcpy(buf, &psh, sizeof(struct pseduo_header));
-    memcpy(buf + sizeof(struct pseduo_header), packet, tcp_len);
+    memcpy(buf, &psh, sizeof(struct pseudo_header));
+    memcpy(buf + sizeof(struct pseudo_header), packet, tcp_len);
 
     // and also the reason we're able to do this is because in c when we just just memcpy
     // we're basically passing in the raw memory so the data type here didn't really matter yk
