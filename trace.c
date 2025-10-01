@@ -31,25 +31,24 @@ void udp(const u_char *packet) {
     // port stuff that was asked on the assignment, should be double checked
 
     u_int16_t src = ntohs(udp.src_port);
-    if (src == 53) printf("DNS\n");
-    else if (src == 67) printf("DHCP Server\n");
-    else if (src == 68) printf("DHCP Client\n");
-    else if (src == 123) printf("NTP\n");
-    else if (src == 161) printf("SNMP\n");
-    else if (src == 162) printf("SNMP Trap\n");
-    else printf("%u\n", src);
+    if (src == 80) printf("HTTP\n");
+    else if (src == 23) printf("Telnet\n");
+    else if (src == 21) printf("FTP\n");
+    else if (src == 110) printf("POP3\n");
+    else if (src == 53) printf("DNS\n");
+    else if (src == 25) printf("SMTP\n");
+    else printf("%d\n", src);
 
     printf("\t\tDest Port: ");
 
-    u_int16_t dst = ntohs(udp.dest_port);
-    if (dst == 53) printf("DNS\n");
-    else if (dst == 67) printf("DHCP Server\n");
-    else if (dst == 68) printf("DHCP Client\n");
-    else if (dst == 80) printf("HTTP\n");
-    else if (dst == 123) printf("NTP\n");
-    else if (dst == 161) printf("SNMP\n");
-    else if (dst == 162) printf("SNMP Trap\n");
-    else printf("%u\n", dst);
+    u_int16_t dest = ntohs(udp.dest_port);
+    if (dest == 80)  printf("HTTP\n");
+    else if (dest == 23) printf("Telnet\n");
+    else if (dest == 21) printf("FTP\n");
+    else if (dest == 110) printf("POP3\n");
+    else if (dest == 53) printf("DNS\n");
+    else if (dest == 25) printf("SMTP\n");
+    else printf("%u\n", dest);
 
     // printf("\t\tLength: %u\n", ntohs(udp.len));
     // printf("\t\tChecksum: %u\n", ntohs(udp.checksum));
@@ -71,13 +70,28 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
     printf("\tTCP Header\n");
     printf("\t\tSegment Length: %d\n", tcp_len);
 
+    printf("\t\tSource Port: ");
+
     u_int16_t src = ntohs(tcp.src_port);
-    if (src != 80) printf("\t\tSource Port: %d\n", src);
-    else printf("\t\tSource Port: HTTP\n");
+    if (src == 80) printf("HTTP\n");
+    else if (src == 23) printf("Telnet\n");
+    else if (src == 21) printf("FTP\n");
+    else if (src == 110) printf("POP3\n");
+    else if (src == 53) printf("DNS\n");
+    else if (src == 25) printf("SMTP\n");
+    else printf("%d\n", src);
+    
+    printf("\t\tDest Port: ");
 
     u_int16_t dest = ntohs(tcp.dest_port);
-    if (dest != 80) printf("\t\tDest Port: %u\n", dest);
-    else printf("\t\tDest Port: HTTP\n");
+    if (dest == 80)  printf("HTTP\n");
+    else if (dest == 23) printf("Telnet\n");
+    else if (dest == 21) printf("FTP\n");
+    else if (dest == 110) printf("POP3\n");
+    else if (dest == 53) printf("DNS\n");
+    else if (dest == 25) printf("SMTP\n");
+    else printf("%u\n", dest);
+   
 
     printf("\t\tSequence Number: %u\n", ntohl(tcp.seq_num));
     printf("\t\tACK Number: %u\n", ntohl(tcp.ack_num));
