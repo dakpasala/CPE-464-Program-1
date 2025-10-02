@@ -91,6 +91,10 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
     else if (dest == 53) printf("DNS\n");
     else if (dest == 25) printf("SMTP\n");
     else printf("%u\n", dest);
+
+    // the point of the above is to print the src and dest ports
+    // if we know the ports like specfied on the spec, actually print the name
+    // else just print the number
    
 
     printf("\t\tSequence Number: %u\n", ntohl(tcp.seq_num));
@@ -99,21 +103,32 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
     // formatted as same as the diff, github has older variables if needed for reference
 
     int raw = ntohs(tcp.offset_flags);
-    int data_offset = raw / 4096;
+    int data_offset = 0;
+    if (raw & 0x1000) data_offset |= 0x1;
+    if (raw & 0x2000) data_offset |= 0x2;
+    if (raw & 0x4000) data_offset |= 0x4;
+    if (raw & 0x8000) data_offset |= 0x8;
+
+    // check the top 4 bits of the field because in offset_flags
+    // data offset is part of the top 4 bits
+    // the anding checks if the bit it set, and then we or it to set the corresponding bit
+
     printf("\t\tData Offset (bytes): %d\n", data_offset * 4);
 
     // in the tcp header, there's a 16 bit field called data offset + reserved + flags
     // here the first 4 bits represent the data offset
     // and then multiply by 4 to get num of bytes
 
-    int flags = raw % 512;
+    int flags = raw & 0x01FF;  // mask off bottom 9 bits
 
-    printf("\t\tSYN Flag: %s\n", ((flags / 2) % 2 == 1) ? "Yes" : "No");
-    printf("\t\tRST Flag: %s\n", ((flags / 4) % 2 == 1) ? "Yes" : "No");
-    printf("\t\tFIN Flag: %s\n", (flags % 2 == 1) ? "Yes" : "No");
-    printf("\t\tACK Flag: %s\n", ((flags / 16) % 2 == 1) ? "Yes" : "No");
-
+    printf("\t\tSYN Flag: %s\n", (flags & 0x002) ? "Yes" : "No");
+    printf("\t\tRST Flag: %s\n", (flags & 0x004) ? "Yes" : "No");
+    printf("\t\tFIN Flag: %s\n", (flags & 0x001) ? "Yes" : "No");
+    printf("\t\tACK Flag: %s\n", (flags & 0x010) ? "Yes" : "No");
     printf("\t\tWindow Size: %d\n", ntohs(tcp.window));
+
+    // all this masking stuff is because we can't bit shift
+    // need to get better at masking because i keep forgetting and looking it up
 
     // okay so lowkey had to gpt a bit of this, but i kind of understand it now
     // add more comments along the way
@@ -308,6 +323,8 @@ void ethernet(const u_char *packet) {
         default:
             break;
     }
+
+    // skip the 14 bits because of the fact that the ethernet header is 14 bytes long
 }
 
 int main(int argc, char *argv[]) {
