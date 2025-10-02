@@ -37,7 +37,7 @@ void udp(const u_char *packet) {
     else if (src == 110) printf("POP3\n");
     else if (src == 53) printf("DNS\n");
     else if (src == 25) printf("SMTP\n");
-    else printf("%d\n", src);
+    else printf("%u\n", src);
 
     printf("\t\tDest Port: ");
 
@@ -79,7 +79,7 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
     else if (src == 110) printf("POP3\n");
     else if (src == 53) printf("DNS\n");
     else if (src == 25) printf("SMTP\n");
-    else printf("%d\n", src);
+    else printf("%u\n", src);
     
     printf("\t\tDest Port: ");
 
