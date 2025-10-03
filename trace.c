@@ -30,6 +30,8 @@ void udp(const u_char *packet) {
 
     // port stuff that was asked on the assignment, should be double checked
 
+    // ntohs convert to cpu byte order from network byte order so we can read it properly
+    
     u_int16_t src = ntohs(udp.src_port);
     if (src == 80) printf("HTTP\n");
     else if (src == 23) printf("Telnet\n");
@@ -142,6 +144,8 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
     psh.proto = 6;
     psh.tcp_len = htons(tcp_len);
 
+    // since we're sending to "network", the len is converted to network byte order
+
     int psize = sizeof(struct pseudo_header) + tcp_len;
     unsigned char *buf = malloc(psize);
     memcpy(buf, &psh, sizeof(struct pseudo_header));
@@ -155,6 +159,13 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
 
     if (result == 0) printf("\t\tChecksum: Correct (0x%04x)\n", ntohs(tcp.checksum));
     else printf("\t\tChecksum: Incorrect (0x%04x)\n", ntohs(tcp.checksum));
+
+    // i think the new thing i can understand about this checksum process is
+    // we need those ip headers because it's needed in the checksum calculation
+    // but they can be discareded after because it's kinda like this idea
+    // imagine when u get a box from amazon or something
+    // u care about what's in the inside, but u gotta makes sure it came to the right address
+    // u checking is like the "checksum" of this and then that label is thrown away
 }
 
 void icmp(const u_char *packet) {
@@ -171,6 +182,8 @@ void icmp(const u_char *packet) {
     if (icmp.type == 8) printf("\t\tType: Request\n");
     else if (icmp.type == 0) printf("\t\tType: Reply\n");
     else printf("\t\tType: %d\n", icmp.type);
+
+    // basic memcpy stuff no explanation needed
 }
 
 void ip(const u_char *packet) {
@@ -288,6 +301,9 @@ void arp(const u_char *packet) {
 
     memcpy(&ip, arp.tpa, 4);
     printf("\t\tTarget IP: %s\n", inet_ntoa(ip));
+
+    // okay the reason we're using a struct in_addr here is because
+    // the inet_ntoa function requires a struct in_addr as input
 }
 
 void ethernet(const u_char *packet) {
