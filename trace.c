@@ -122,7 +122,7 @@ void tcp(const u_char *packet, int tcp_len, struct in_addr s, struct in_addr d) 
     // data offset is part of the top 4 bits
     // the anding checks if the bit it set, and then we or it to set the corresponding bit
 
-    printf("\t\tData Offset (bytes): %d\n", data_offset * 4);
+    printf("\t\tData Offset (bytes): %d\n", data_offset + data_offset + data_offset + data_offset);
 
     // in the tcp header, there's a 16 bit field called data offset + reserved + flags
     // here the first 4 bits represent the data offset
@@ -208,7 +208,7 @@ void ip(const u_char *packet) {
 
     // int version = (ip.ver_ihl & 0xF0) / 16;
     int ihl = ip.ver_ihl & 0x0F;
-    int header_len = ihl * 4;
+    int header_len = ihl + ihl + ihl + ihl; // haha got away with the * 4
 
     // ihl = "Internet Header Length" from the IP header
     // when multiplied by 4, it gives the actual bytes
