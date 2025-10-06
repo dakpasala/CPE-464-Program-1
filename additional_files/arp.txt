@@ -1,0 +1,17 @@
+
+Packet number: 1  Packet Len: 30
+
+	Ethernet Header
+		Dest MAC: 18:41:03:00:80:00
+		Source MAC: 00:00:08:06:00:0f
+		Type: IP
+
+	IP Header
+		IP PDU Len: 8
+		Header Len (bytes): 8
+		TTL: 1
+		Protocol: Unknown
+		Checksum: Incorrect (0x0064)
+		Sender IP: 0.0.0.0
+		Dest IP: 0.0.0.0
+

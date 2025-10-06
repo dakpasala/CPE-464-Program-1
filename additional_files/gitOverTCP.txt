@@ -1,0 +1,121 @@
+
+Packet number: 1  Packet Len: 68
+
+	Ethernet Header
+		Dest MAC: 08:00:27:19:69:9a
+		Source MAC: 52:54:00:12:35:02
+		Type: IP
+
+	IP Header
+		IP PDU Len: 54
+		Header Len (bytes): 20
+		TTL: 64
+		Protocol: TCP
+		Checksum: Correct (0x0713)
+		Sender IP: 147.75.58.133
+		Dest IP: 10.0.2.15
+
+	TCP Header
+		Segment Length: 34
+		Source Port: 9418
+		Dest Port: 49188
+		Sequence Number: 2156898818
+		ACK Number: 2919475850
+		Data Offset (bytes): 20
+		SYN Flag: No
+		RST Flag: No
+		FIN Flag: No
+		ACK Flag: Yes
+		Window Size: 65535
+		Checksum: Correct (0x1ac8)
+
+Packet number: 2  Packet Len: 150
+
+	Ethernet Header
+		Dest MAC: 08:00:27:19:69:9a
+		Source MAC: 52:54:00:12:35:02
+		Type: IP
+
+	IP Header
+		IP PDU Len: 136
+		Header Len (bytes): 20
+		TTL: 64
+		Protocol: TCP
+		Checksum: Correct (0x06c0)
+		Sender IP: 147.75.58.133
+		Dest IP: 10.0.2.15
+
+	TCP Header
+		Segment Length: 116
+		Source Port: 9418
+		Dest Port: 49188
+		Sequence Number: 2156898832
+		ACK Number: 2919475850
+		Data Offset (bytes): 20
+		SYN Flag: No
+		RST Flag: No
+		FIN Flag: No
+		ACK Flag: Yes
+		Window Size: 65535
+		Checksum: Correct (0x9417)
+
+Packet number: 3  Packet Len: 74
+
+	Ethernet Header
+		Dest MAC: 52:54:00:12:35:02
+		Source MAC: 08:00:27:19:69:9a
+		Type: IP
+
+	IP Header
+		IP PDU Len: 60
+		Header Len (bytes): 20
+		TTL: 64
+		Protocol: TCP
+		Checksum: Correct (0xdb8e)
+		Sender IP: 10.0.2.15
+		Dest IP: 147.75.58.133
+
+	TCP Header
+		Segment Length: 40
+		Source Port: 49188
+		Dest Port: 9418
+		Sequence Number: 2919475850
+		ACK Number: 2156898928
+		Data Offset (bytes): 20
+		SYN Flag: No
+		RST Flag: No
+		FIN Flag: No
+		ACK Flag: Yes
+		Window Size: 64130
+		Checksum: Incorrect (0xda0d)
+
+Packet number: 4  Packet Len: 202
+
+	Ethernet Header
+		Dest MAC: 52:54:00:12:35:02
+		Source MAC: 08:00:27:19:69:9a
+		Type: IP
+
+	IP Header
+		IP PDU Len: 188
+		Header Len (bytes): 20
+		TTL: 64
+		Protocol: TCP
+		Checksum: Correct (0xdb0d)
+		Sender IP: 10.0.2.15
+		Dest IP: 147.75.58.133
+
+	TCP Header
+		Segment Length: 168
+		Source Port: 49188
+		Dest Port: 9418
+		Sequence Number: 2919475870
+		ACK Number: 2156898928
+		Data Offset (bytes): 20
+		SYN Flag: No
+		RST Flag: No
+		FIN Flag: No
+		ACK Flag: Yes
+		Window Size: 64130
+		Checksum: Incorrect (0xda8d)
+

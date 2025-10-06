@@ -1,0 +1,31 @@
+
+Packet number: 1  Packet Len: 215
+
+	Ethernet Header
+		Dest MAC: ff:ff:ff:ff:ff:ff
+		Source MAC: 00:00:00:00:00:00
+		Type: IP
+
+	IP Header
+		IP PDU Len: 201
+		Header Len (bytes): 20
+		TTL: 64
+		Protocol: TCP
+		Checksum: Correct (0x7c2c)
+		Sender IP: 127.0.0.1
+		Dest IP: 127.0.0.1
+
+	TCP Header
+		Segment Length: 181
+		Source Port: HTTP
+		Dest Port: HTTP
+		Sequence Number: 0
+		ACK Number: 0
+		Data Offset (bytes): 20
+		SYN Flag: Yes
+		RST Flag: No
+		FIN Flag: No
+		ACK Flag: No
+		Window Size: 8192
+		Checksum: Correct (0x6066)
+

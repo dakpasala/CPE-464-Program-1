@@ -1,0 +1,141 @@
+
+Packet number: 1  Packet Len: 120
+
+	Ethernet Header
+		Dest MAC: 78:31:c1:cb:b2:56
+		Source MAC: c0:c1:c0:17:8c:e8
+		Type: IP
+
+	IP Header
+		IP PDU Len: 106
+		Header Len (bytes): 20
+		TTL: 54
+		Protocol: UDP
+		Checksum: Correct (0x81d6)
+		Sender IP: 4.2.2.1
+		Dest IP: 172.16.16.154
+
+	UDP Header
+		Source Port: DNS
+		Dest Port: 57434
+
+Packet number: 2  Packet Len: 110
+
+	Ethernet Header
+		Dest MAC: 78:31:c1:cb:b2:56
+		Source MAC: c0:c1:c0:17:8c:e8
+		Type: IP
+
+	IP Header
+		IP PDU Len: 96
+		Header Len (bytes): 20
+		TTL: 54
+		Protocol: UDP
+		Checksum: Correct (0x81e0)
+		Sender IP: 4.2.2.1
+		Dest IP: 172.16.16.154
+
+	UDP Header
+		Source Port: DNS
+		Dest Port: 22689
+
+Packet number: 3  Packet Len: 160
+
+	Ethernet Header
+		Dest MAC: 78:31:c1:cb:b2:56
+		Source MAC: c0:c1:c0:17:8c:e8
+		Type: IP
+
+	IP Header
+		IP PDU Len: 146
+		Header Len (bytes): 20
+		TTL: 54
+		Protocol: UDP
+		Checksum: Correct (0x81ae)
+		Sender IP: 4.2.2.1
+		Dest IP: 172.16.16.154
+
+	UDP Header
+		Source Port: DNS
+		Dest Port: 52723
+
+Packet number: 4  Packet Len: 177
+
+	Ethernet Header
+		Dest MAC: 78:31:c1:cb:b2:56
+		Source MAC: c0:c1:c0:17:8c:e8
+		Type: IP
+
+	IP Header
+		IP PDU Len: 163
+		Header Len (bytes): 20
+		TTL: 54
+		Protocol: UDP
+		Checksum: Correct (0x819d)
+		Sender IP: 4.2.2.1
+		Dest IP: 172.16.16.154
+
+	UDP Header
+		Source Port: DNS
+		Dest Port: 23201
+
+Packet number: 5  Packet Len: 185
+
+	Ethernet Header
+		Dest MAC: 78:31:c1:cb:b2:56
+		Source MAC: c0:c1:c0:17:8c:e8
+		Type: IP
+
+	IP Header
+		IP PDU Len: 171
+		Header Len (bytes): 20
+		TTL: 54
+		Protocol: UDP
+		Checksum: Correct (0x8195)
+		Sender IP: 4.2.2.1
+		Dest IP: 172.16.16.154
+
+	UDP Header
+		Source Port: DNS
+		Dest Port: 57920
+
+Packet number: 6  Packet Len: 177
+
+	Ethernet Header
+		Dest MAC: 78:31:c1:cb:b2:56
+		Source MAC: c0:c1:c0:17:8c:e8
+		Type: IP
+
+	IP Header
+		IP PDU Len: 163
+		Header Len (bytes): 20
+		TTL: 54
+		Protocol: UDP
+		Checksum: Correct (0x819d)
+		Sender IP: 4.2.2.1
+		Dest IP: 172.16.16.154
+
+	UDP Header
+		Source Port: DNS
+		Dest Port: 49283
+
+Packet number: 7  Packet Len: 177
+
+	Ethernet Header
+		Dest MAC: 78:31:c1:cb:b2:56
+		Source MAC: c0:c1:c0:17:8c:e8
+		Type: IP
+
+	IP Header
+		IP PDU Len: 163
+		Header Len (bytes): 20
+		TTL: 54
+		Protocol: UDP
+		Checksum: Correct (0x819d)
+		Sender IP: 4.2.2.1
+		Dest IP: 172.16.16.154
+
+	UDP Header
+		Source Port: DNS
+		Dest Port: 21916
+
